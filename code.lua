@@ -74,6 +74,7 @@ TH:SetScript("OnEvent", function()
 	TalkingHeadFrame_CloseImmediately();
 	C_TalkingHead.IgnoreCurrentTalkingHead();
 	THF:Hide();
+	TH:UnregisterEvent("TALKINGHEAD_REQUESTED")
 end) -- Ignore TalkingHeadFrame
 
 -- hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self, parent) self:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", 0, 0) end) -- 툴팁위치 마우스 커서에 고정
