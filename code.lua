@@ -1,4 +1,4 @@
-﻿-- SetCVar("", )
+-- SetCVar("", )
 SetCVar("autoLootDefault", 1)
 SetCVar("mapFade", 0)
 SetCVar("lockedWorldMap", 0)
@@ -66,11 +66,15 @@ end
 
 local c=LossOfControlFrame;c.RedLineBottom:Hide();c.blackBg:Hide();c.RedLineTop:Hide();c:SetScale(0.7);select(2,LossOfControlFrame:GetChildren()):SetAlpha(0) -- LOC 깔끔하게
 
--- /console scriptErrors 1 : Enable LUA ERROR
-
+CreateFrame("Frame","TH")
+	TH:RegisterEvent("TALKINGHEAD_REQUESTED")
+	TH:SetScript("OnEvent", function()
+    local THF = TalkingHeadFrame
+    TalkingHeadFrame_CloseImmediately();
+    C_TalkingHead.IgnoreCurrentTalkingHead();
+    THF:Hide();
+end) -- Ignore TalkingHeadFrame
 
 -- hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self, parent) self:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", 0, 0) end) -- 툴팁위치 마우스 커서에 고정
-
 -- GameTooltip:HookScript("OnTooltipSetUnit",function(s)local n,u=s:GetUnit()if not u then return end;n=UnitName(u.."target")if n then s:AddDoubleLine("대상  ▶", n==UnitName"player"and"\124cffff00ff<<YOU>>\124r"or n)s:Show()end end) -- 툴팁에 대상 표시
-
 -- hooksecurefunc("TargetFrame_UpdateAuras", function(s) local sN=s:GetName() for i=1,16 do local tdc,tbc=_G[sN.."Debuff"..i .."Cooldown"],_G[sN.."Buff"..i .."Cooldown"];if tdc then tdc:SetHideCountdownNumbers(false) elseif tbc then tbc:SetHideCountdownNumbers(false) end end end) -- 버프/디버프 남은시간 표시
