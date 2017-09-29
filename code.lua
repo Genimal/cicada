@@ -67,12 +67,13 @@ end
 local c=LossOfControlFrame;c.RedLineBottom:Hide();c.blackBg:Hide();c.RedLineTop:Hide();c:SetScale(0.7);select(2,LossOfControlFrame:GetChildren()):SetAlpha(0) -- LOC 깔끔하게
 
 CreateFrame("Frame","TH")
-	TH:RegisterEvent("TALKINGHEAD_REQUESTED")
-	TH:SetScript("OnEvent", function()
-    local THF = TalkingHeadFrame
-    TalkingHeadFrame_CloseImmediately();
-    C_TalkingHead.IgnoreCurrentTalkingHead();
-    THF:Hide();
+TH:RegisterEvent("TALKINGHEAD_REQUESTED")
+TH:SetScript("OnEvent", function()
+	local THF = TalkingHeadFrame
+	THF:UnregisterAllEvents();
+	TalkingHeadFrame_CloseImmediately();
+	C_TalkingHead.IgnoreCurrentTalkingHead();
+	THF:Hide();
 end) -- Ignore TalkingHeadFrame
 
 -- hooksecurefunc("GameTooltip_SetDefaultAnchor", function(self, parent) self:SetOwner(parent, "ANCHOR_CURSOR_RIGHT", 0, 0) end) -- 툴팁위치 마우스 커서에 고정
