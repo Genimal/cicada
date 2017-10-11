@@ -50,10 +50,11 @@ PAPERDOLL_STATCATEGORIES[1].stats[8] = { stat = "ATTACK_DAMAGE" };
 local z = CreateFrame("FRAME")
     z:RegisterEvent("PLAYER_ENTERING_WORLD")
     z:SetScript("OnEvent", function()
-    SetCVar("cameraDistanceMaxZoomFactor", 2.6)
+    SetCVar("cameraDistanceMaxZoomFactor", 2.6) -- 시야 넓히기 /console cameraDistanceMaxZoomFactor 2.6
+    if not AreAccountAchievementsHidden() then ShowAccountAchievements(0) end --Show only character's achievements.
     z:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
-) -- 시야 넓히기 /console cameraDistanceMaxZoomFactor 2.6
+)
 
 
 local c=LossOfControlFrame;c.RedLineBottom:Hide();c.blackBg:Hide();c.RedLineTop:Hide();c:SetScale(0.7);select(2,LossOfControlFrame:GetChildren()):SetAlpha(0) -- LOC 깔끔하게
