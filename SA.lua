@@ -1,9 +1,8 @@
---차단알림
-
-local alert=CreateFrame("Frame")
-
+--주문경보 알림
+local alert = CreateFrame("Frame","alert")
 alert:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-alert:SetScript("OnEvent", function(_,_,_,combatEvent,_,sourceGUID,sourceName,sourceFlags,sourceRaidFlags,destGUID,destName,destFlags, destRaidFlags,spellID,spellName,_,param1,_,_,param4)
+alert:SetScript("OnEvent", function(...)
+local _,combatEvent,hideCaster,sourceGUID,sourceName,sourceFlags,sourceRaidFlags,destGUID,destName,destFlags, destRaidFlags,spellID,spellName,_,param1,_,_,param4 = CombatLogGetCurrentEventInfo()
 if sourceGUID == UnitGUID("player") and combatEvent=="SPELL_INTERRUPT" then
 	print("\124cffff0000차단\124r : "..destName.."의 "..GetSpellLink(param1)) -- 차단
 elseif sourceGUID == UnitGUID("player") and combatEvent=="SPELL_DISPEL" and (bit.band(destFlags,COMBATLOG_OBJECT_REACTION_FRIENDLY)==COMBATLOG_OBJECT_REACTION_FRIENDLY) then
@@ -17,7 +16,8 @@ elseif destGUID == UnitGUID("player") and combatEvent=="SPELL_MISSED" and param1
 end
 end)
 
-CreateFrame("FRAME","p")
+--미니탭 테러 검거
+local p = CreateFrame("FRAME","p")
 p:RegisterEvent("MINIMAP_PING")
 p:SetScript("OnEvent",function(s,e,u)
 	local pn=UnitName(u)
@@ -26,4 +26,5 @@ p:SetScript("OnEvent",function(s,e,u)
 	if select(8,GetInstanceInfo())==1676 and pn~=UnitName("player") then 
 		print("미니맵 징표 : \124c"..color.colorStr..pn.."\124r - "..tonumber(date("%H"))..":"..tonumber(date("%M"))..":"..tonumber(date("%S")))
 	end 
-end) --미니맵 테러 검거
+end)
+end)
