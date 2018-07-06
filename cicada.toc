@@ -1,4 +1,4 @@
-﻿## Interface: 70300
+## Interface: 80000
 ## Title: cicada
 code.lua
 ActionBars.lua
